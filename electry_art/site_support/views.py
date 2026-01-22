@@ -6,6 +6,8 @@ from electry_art.orders.models import Inquiry
 from django.urls import reverse_lazy
 from django.views import generic
 
+from electry_art.products.product_mixins.product_mixins import SuperuserRequiredMixin
+
 
 class SupportSiteIndexView(generic.TemplateView):
     template_name = 'site_support/site_support_index.html'
@@ -68,7 +70,7 @@ class InquiryCreateView(generic.CreateView):
     success_url = reverse_lazy('index')
 
 
-class InquiryListView(generic.ListView):
+class InquiryListView(SuperuserRequiredMixin, generic.ListView):
     model = Inquiry
     template_name = 'site_support/inquiry_list.html'
 
@@ -76,7 +78,7 @@ class InquiryListView(generic.ListView):
         return Inquiry.objects.all().order_by('-created_at')
 
 
-class InquiryDetailView(generic.DetailView):
+class InquiryDetailView(SuperuserRequiredMixin, generic.DetailView):
     model = Inquiry
     template_name = 'site_support/inquiry_detail.html'
     context_object_name = 'inquiry'
