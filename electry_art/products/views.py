@@ -187,6 +187,7 @@ class ProductEditView(SuperuserRequiredMixin, LoginRequiredMixin, generic.Update
         return reverse_lazy('product details', kwargs={'pk': self.object.pk})
 
 
+# Like, Wishlist, Search
 class ProductCategoryListView(LikedIdsContextMixin, generic.ListView):
     template_name = 'products/get_all_products.html'
     model = Product
